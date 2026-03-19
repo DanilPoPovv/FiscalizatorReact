@@ -1,0 +1,14 @@
+html,body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  height: 100%;
+  width: 100%;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: oklab(15.479999999999999% 0.00663 0.00213);
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+
+}
