@@ -1,5 +1,12 @@
+import { Navbar } from "./Navbar";
+
 function AdminPage() {
-  return <h1>Добро пожаловать, Admin!</h1>;
+
+
+
+  return <div>
+        <Navbar/>
+  </div>;
 }
 
 export default AdminPage;
