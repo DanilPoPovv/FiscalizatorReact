@@ -10,4 +10,5 @@
     display: flex;
     align-items: stretch;
     height: 60px;
+    background-color: rgb(8, 27, 36);
 }

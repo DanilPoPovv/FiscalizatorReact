@@ -1,0 +1,20 @@
+.infoLabel{
+    padding-right: 100px;
+}
+
+.clientInfoBox {
+    border: 2px solid white;
+    border-radius: 4px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap : 20px;
+}
+.rightBorderedInfoDiv {
+    border-right: 4px solid black;
+}
+.baseFlexDiv {
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}

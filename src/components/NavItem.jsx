@@ -10,6 +10,7 @@ export function NavItem({ NavName }) {
         borderRight: "3px solid white",
         textAlign: "center",
         width: "60px",
+        backgroundColor : "Background"
       }}
     >
       {NavName}
