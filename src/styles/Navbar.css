@@ -11,13 +11,3 @@
     align-items: stretch;
     height: 60px;
 }
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 0px 60px;
-    justify-content: center;
-    border-right: 3px solid white;
-    text-align: center;
-    width: 60px;
-}
