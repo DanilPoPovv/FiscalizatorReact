@@ -10,6 +10,6 @@
     display: flex;
     align-items: stretch;
     height: 60px;
-    background-color: rgb(8, 27, 36);
+    background-color:#000b13;
     border-bottom: green 2px solid;
 }

@@ -1,7 +1,8 @@
 import "../../styles/AdminPage.css"
-export default function ClientInfoDivItem( {itemText, itemWidth }) {
+export default function ClientInfoDivItem( {itemText, style}) {
     return (
-      <div className="cell" style={{ width: itemWidth }}>
+      <div className="cell" style= {{
+        ...style}}>
         {itemText}
       </div>
     )
