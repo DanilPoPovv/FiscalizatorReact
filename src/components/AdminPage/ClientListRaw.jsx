@@ -6,8 +6,7 @@ export default function ClientInfoRaw({ client }) {
       <ClientInfoDivItem itemText={client.name} />
       <ClientInfoDivItem itemText={client.email} />
       <ClientInfoDivItem itemText={client.address} />
-      <ClientInfoDivItem
-  itemText={<button>Удалить</button>}/>
+      <ClientInfoDivItem itemText={<button>Удалить</button>}/>
     </>
   );
 }

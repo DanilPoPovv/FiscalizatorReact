@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import ClientInfoRaw from "./ClientListRaw";
 import ClientInfoHeader from "./ClientInfoHeader";
+import "../../styles/ClientInfoList.css"
 export default function ClientInfoList() {
   const clients = [
     { id: 1, name: "Азамат", email: "a31223213123@gmail.com", address: "address 1" },
@@ -12,16 +13,8 @@ export default function ClientInfoList() {
 
  
   return (
-<div style={{
-  display : "grid",
-  gridTemplateColumns: "200px 200px 300px 100px",
-  gap: "0px",
-  alignItems: "center",
-  margin : "200px",
-  marginTop : "100px",
-  border: "1px solid black",
-  width : "fit-content" }}>
-  <ClientInfoHeader style={{color : "blue"}} headers={headers} />
+<div className="clientInfoList">
+  <ClientInfoHeader style={{color : "#80c0ff"}} headers={headers} />
 
   {clients.map(client => (
     <ClientInfoRaw key={client.id} client={client} />
