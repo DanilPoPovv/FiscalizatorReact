@@ -11,4 +11,5 @@
     align-items: stretch;
     height: 60px;
     background-color: rgb(8, 27, 36);
+    border-bottom: green 2px solid;
 }

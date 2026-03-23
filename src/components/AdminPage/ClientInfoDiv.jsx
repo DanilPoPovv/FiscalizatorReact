@@ -7,12 +7,14 @@ export function ClientInfoDiv({ client, showButton = true }) {
         height: "40px",
         borderRadius: "4px",
         padding: "0px",
-        display: "flex",
+        display: "grid",
+        gridTemplateColumns: "150px 200px 100px 100px",
         gap: "20px",
       }}
     >
-      <ClientInfoDivItem itemText={client.name} itemWidth={150}/>
-      <ClientInfoDivItem itemText={client.email} itemWidth={200}/>
+      <ClientInfoDivItem itemText={client.name}/>
+      <ClientInfoDivItem itemText={client.email} />
+      <ClientInfoDivItem itemText={client.address} />
       <div className="rightBorderedInfoDiv" style={{ width: "100px", alignItems : "center",display: "flex"}}>
         {showButton && <button>Удалить</button>}
       </div>

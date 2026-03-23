@@ -11,8 +11,7 @@ export function NavItem({ NavName, onClick}) {
         justifyContent: "center",
         borderRight: "3px solid green",
         textAlign: "center",
-        width: "150px",
-        backgroundColor : ""
+        flex: 1,
       }}
     >
       {NavName}

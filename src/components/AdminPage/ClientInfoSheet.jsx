@@ -1,13 +1,14 @@
 import { ClientInfoDiv } from "./ClientInfoDiv";
 export default function ClientInfoSheet(){
         const clients = [
-    { id: 1, name: "Азамат", email: "a@gmail.com" },
-    { id: 2, name: "Иван", email: "i@gmail.com" },
-    { id: 3, name: "Sam", email: "s@gmail.com" }
+    { id: 1, name: "Азамат", email: "a@gmail.com", address : "address 1" },
+    { id: 2, name: "Иван", email: "i@gmail.com", address : "address 2"  },
+    { id: 3, name: "Sam", email: "s@gmail.com", address : "address 3"  }
   ];
     return (
-            <div>
-                <ClientInfoDiv client={{name : "Инн", email : "Имя"}} showButton={false} />
+            // maxWidth должен быть равен ширине всех внутренних ClientInfoDiv чтобы сетка не ехала 
+            <div style={{ paddingTop : "100px", margin : "0 auto", width : "fit-content"}}>
+                <ClientInfoDiv client={{name : "Инн", email : "Имя", address : "Адресс"}} showButton={false} />
                 {clients.map(client => (
                   <ClientInfoDiv key={client.id} client={client} />
                 ))}
