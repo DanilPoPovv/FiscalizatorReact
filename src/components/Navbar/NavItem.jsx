@@ -1,16 +1,18 @@
-export function NavItem({ NavName }) {
+export function NavItem({ NavName, onClick}) {
+
   return (
     <div
+      onClick={onClick}
       style={{
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
-        padding: "0px 60px",
+        padding: "0px 10px",
         justifyContent: "center",
-        borderRight: "3px solid white",
+        borderRight: "3px solid green",
         textAlign: "center",
-        width: "60px",
-        backgroundColor : "Background"
+        width: "150px",
+        backgroundColor : ""
       }}
     >
       {NavName}

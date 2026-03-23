@@ -1,3 +1,4 @@
+import ClientInfoDivItem from "./CleintInfoDivItem";
 export function ClientInfoDiv({ client, showButton = true }) {
   return (
     <div
@@ -10,12 +11,8 @@ export function ClientInfoDiv({ client, showButton = true }) {
         gap: "20px",
       }}
     >
-      <div className="baseFlexDiv rightBorderedInfoDiv" style={{ width: "150px" }}>
-        {client.name}
-      </div>
-      <div className="baseFlexDiv rightBorderedInfoDiv" style={{ width: "200px" }}>
-        {client.email}
-      </div>
+      <ClientInfoDivItem itemText={client.name} itemWidth={150}/>
+      <ClientInfoDivItem itemText={client.email} itemWidth={200}/>
       <div className="rightBorderedInfoDiv" style={{ width: "100px", alignItems : "center",display: "flex"}}>
         {showButton && <button>Удалить</button>}
       </div>
