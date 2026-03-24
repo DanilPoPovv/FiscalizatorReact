@@ -1,4 +1,5 @@
-.SearchWithListBox{
-      margin: 100px auto 0 auto;
-      width: fit-content;
+.SearchWithListBox {
+  margin: 100px auto 0 auto;  /* центрирование по горизонтали */
+  width: 100%;                /* растягиваем на всю ширину родителя */
+  max-width: 1000px;           /* ограничение ширины, чтобы не было слишком широкого блока */
 }

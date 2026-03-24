@@ -1,10 +1,14 @@
 .clientInfoList {
   display: grid;
-  grid-template-columns: 200px 200px 300px 140px;
+  grid-template-columns: 
+    minmax(150px, 1fr)  /* Имя */
+    minmax(200px, 2fr)  /* Email */
+    minmax(200px, 3fr)  /* Адрес */
+    minmax(100px, 1fr); /* Действие */
   gap: 0px;
   align-items: stretch;
-  margin: 100px auto 0 auto;
+  margin: 10px auto 0 auto;
   border: 1px solid #444;
   border-bottom: none;
-  width: fit-content;
+  width: 100%;
 }
