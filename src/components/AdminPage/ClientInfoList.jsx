@@ -15,7 +15,6 @@ export default function ClientInfoList() {
   return (
 <div className="clientInfoList">
   <ClientInfoHeader style={{color : "#80c0ff"}} headers={headers} />
-
   {clients.map(client => (
     <ClientInfoRaw key={client.id} client={client} />
   ))}

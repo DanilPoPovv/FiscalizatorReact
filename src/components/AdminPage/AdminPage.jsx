@@ -1,7 +1,7 @@
 import { Navbar } from "../Navbar/Navbar";
 import "../../styles/AdminPage.css"
 import { useState } from "react";
-import  ClientInfoList  from "./ClientInfoList"
+import InfoListAndSearch from "./InfoListWithSearch";
 function AdminPage() {
 
     const [activePage, setActivePage] = useState("admin")
@@ -10,7 +10,7 @@ function AdminPage() {
     <div>
       <Navbar onNavigate={setActivePage} />
 
-      {activePage === "/client" && <ClientInfoList/>}
+      {activePage === "/client" && <InfoListAndSearch/>}
       {activePage === "/admin" && <div>Страница админов</div>}
       {activePage === "main" && <div>Фискализатор</div>}
     </div>
