@@ -1,9 +1,10 @@
 .clientInfoList {
   display: grid;
-  grid-template-columns: 200px 200px 300px 100px;
+  grid-template-columns: 200px 200px 300px 140px;
   gap: 0px;
-  align-items: center;
+  align-items: stretch;
   margin: 100px auto 0 auto;
   border: 1px solid #444;
+  border-bottom: none;
   width: fit-content;
 }

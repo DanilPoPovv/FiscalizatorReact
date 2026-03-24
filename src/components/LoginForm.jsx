@@ -44,7 +44,7 @@ function LoginForm() {
   };
 
   return (
-    <div style={{width: "300px", minHeight: "200px", padding: "20px",  border : "2px solid white"}}>
+    <div style={{width: "300px", minHeight: "200px", padding: "20px",  border : "2px solid white", margin : "165px auto 0 auto"}}>
       <h2 style={{textAlign: "center", color : "white"}}>Авторизация</h2>
 
       <form onSubmit={handleSubmit}>
