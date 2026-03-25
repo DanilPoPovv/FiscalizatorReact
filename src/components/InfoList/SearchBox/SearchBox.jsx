@@ -1,12 +1,15 @@
 import InputRow from "./InputRow";
+
 export default function SearchBox() {
   return (
-    <div style={{ border: "2px solid white", width : "100%" }}>
-      <p style={{ color: "white", border: "2px solid black", width: "100%" }}>
-        🔍 Поиск по критериям:
-      </p>
+    <div className="searchBox">
+      <div className="searchHeader">
+        <p className="searchTitle">
+          🔍 Поиск по критериям:
+        </p>
+      </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div className="searchContent">
         <InputRow placeholder="Имя" />
         <InputRow placeholder="Фамилия" />
         <InputRow placeholder="Возраст" />

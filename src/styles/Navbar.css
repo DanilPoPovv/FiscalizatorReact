@@ -11,5 +11,15 @@
     align-items: stretch;
     height: 60px;
     background-color:#000b13;
-    border-bottom: green 2px solid;
+    border-bottom: #80c0ff solid; 
+}
+.navItem {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 10px;
+  border-right: #80c0ff solid;
+  text-align: center;
+  flex: 1;
 }

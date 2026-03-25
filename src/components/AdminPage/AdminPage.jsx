@@ -1,7 +1,6 @@
 import { Navbar } from "../Navbar/Navbar";
-import "../../styles/AdminPage.css"
 import { useState } from "react";
-import InfoListAndSearch from "./InfoListWithSearch";
+import InfoListAndSearch from "../InfoList/InfoListWithSearch";
 function AdminPage() {
 
     const [activePage, setActivePage] = useState("admin")

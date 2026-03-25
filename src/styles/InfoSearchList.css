@@ -1,0 +1,88 @@
+.clientInfoList {
+  display: grid;
+  grid-template-columns: 
+    minmax(150px, 1fr)
+    minmax(200px, 2fr)  
+    minmax(200px, 3fr)  
+    minmax(100px, 1fr);
+  gap: 0px;
+  align-items: stretch;
+  margin: 10px auto 0 auto;
+  border: 1px solid #444;
+  border-bottom: none;
+  width: 100%;
+}
+.searchBox {
+  border: 2px solid #444;
+  width: 100%;
+}
+
+.searchHeader {
+  border-bottom: 2px solid gray;
+  margin-bottom: 0px;
+  height: 35px;
+}
+
+.searchTitle {
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+  height: 35px;
+  margin-left: 10px;
+}
+
+.searchContent {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.SearchWithListBox {
+  margin: 100px auto 0 auto; 
+  width: 100%;            
+  max-width: 1000px;           
+}
+.inputRow {
+  flex: 1 1 45%;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  min-width: 45%;
+  color: #80c0ff;
+}
+
+.inputRowLabel {
+  margin-right: 10px;
+  min-width: 80px;
+  text-align: right;
+}
+
+.inputRowInput {
+  flex: 1;
+  min-width: 75px;
+  max-width: 295px;
+}
+.cell {
+  padding-left: 1px;
+  border-right: 2px solid #444;
+  border-bottom: 2px solid #444;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-top: 20px;
+  text-align: center;
+  color: #e0e0e0;
+  padding-bottom: 15px;
+}
+.cell button {
+  background-color: #1a2b40; 
+  color: #fff;                
+  border: none;             
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 18px;         
+}
+
+.cell button:hover {
+  background-color: #2a3b50; 
+}
