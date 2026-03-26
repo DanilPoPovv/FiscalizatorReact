@@ -11,6 +11,7 @@
   border: 1px solid #444;
   border-bottom: none;
   width: 100%;
+  min-width: 0;
 }
 .searchBox {
   border: 2px solid #444;
@@ -37,9 +38,12 @@
   margin-top: 10px;
 }
 .SearchWithListBox {
-  margin: 100px auto 0 auto; 
-  width: 100%;            
-  max-width: 1000px;           
+  margin: 100px auto 0 auto;
+  max-width: 1000px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* ВАЖНО */
 }
 .inputRow {
   flex: 1 1 45%;
