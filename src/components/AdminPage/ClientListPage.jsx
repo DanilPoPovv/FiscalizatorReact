@@ -1,4 +1,5 @@
 import { useState } from "react";
+import InfoListAndSearch from "../InfoList/InfoListWithSearch";
 
 export default function ClientListPage(){
     const [data, setData] = useState([]);
@@ -22,10 +23,16 @@ export default function ClientListPage(){
         setData(result);
     }
 
-    async function action(actionType, requestData) {
+    async function handleAction(actionType, requestData) {
         switch(actionType){
             case "edit":
                 await editClient(requestData);
+            case "create":
+                await createClient(requestData);
+            case "delete":
+                await deleteClient(requestData);
+            default:   
+                throw new Error("Передан не поддерживаемый тип действия")
         }
     }
     
@@ -62,7 +69,7 @@ export default function ClientListPage(){
 
         setData(result);
     }
-    async function createClient(requestData) {
+    async function deleteClient(requestData) {
         const request = {
             ClientCode : requestData.ClientCode,
         }
@@ -76,4 +83,17 @@ export default function ClientListPage(){
 
         setData(result);
     }
+    return (
+        <InfoListAndSearch
+        headers={["Имя", "Email", "Адрес", "Действие"]}
+        criteriaList={[
+        { label: "Имя", field: "name" },
+        { label: "Email", field: "email" },
+        { label: "Адрес", field: "address" },
+        ]}
+        data={data}
+        onSearch={handleSearch}
+        onAction={handleAction}
+        />
+    )
 }

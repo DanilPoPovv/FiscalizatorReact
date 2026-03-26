@@ -90,3 +90,11 @@
 .cell button:hover {
   background-color: #2a3b50; 
 }
+
+.searchButton {
+  color: #80c0ff;
+  background-color: #1a2b40;
+  margin: 10px 0 10px 805px;
+  width : 95px;
+  height: 30px;
+}

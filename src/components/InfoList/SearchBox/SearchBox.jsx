@@ -1,6 +1,15 @@
+import { useState } from "react";
 import InputRow from "./InputRow";
+import SearchButton from "./SerachButton";
+export default function SearchBox({criteriaList, onSearch}) {
+  const[values, setValues] = useState({});
 
-export default function SearchBox({creteriaList}) {
+  function handleSearch(){
+    const newValues = {...values, [field]: value};
+    setValues(newValues);
+
+    onSearch(newValues);
+  }
   return (
     <div className="searchBox">
       <div className="searchHeader">
@@ -10,10 +19,11 @@ export default function SearchBox({creteriaList}) {
       </div>
 
       <div className="searchContent">
-        {creteriaList.map(creteria => (
-          <InputRow key={creteria} placeholder={creteria}/>
+        {criteriaList.map(criteria => (
+          <InputRow key={criteria.field} placeholder={criteria.label}/>
         ))}
       </div>
+      <SearchButton onSearch={handleSearch}/>
     </div>
   );
 }

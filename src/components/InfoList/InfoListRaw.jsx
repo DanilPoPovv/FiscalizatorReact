@@ -1,18 +1,21 @@
 import InfoListCell from "./InfoListCell";
-export default function InfoListRaw({ client }) {
+
+export default function InfoListRaw({ item, onAction }) {
   return (
     <>
-      <InfoListCell itemText={client.name} />
-      <InfoListCell itemText={client.email} />
-      <InfoListCell itemText={client.address} />
+      {Object.entries(item).map(([key, value]) => (
+        <InfoListCell key={key} itemText={value} />
+      ))}
+
       <InfoListCell
-  itemText={
-    <div style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
-      <button title="Изменить">✏️</button>
-      <button title="Удалить">🗑️</button>
-      <button title="Добавить">➕</button>
-    </div>
-  }/>
+        itemText={
+          <div style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
+            <button title="Изменить" onClick={() => onAction("edit", item)}>✏️</button>
+            <button title="Удалить" onClick={() => onAction("delete", item)}>🗑️</button>
+            <button title="Добавить" onClick={() => onAction("create")}>➕</button>
+          </div>
+        }
+      />
     </>
   );
 }
