@@ -9,8 +9,11 @@ function AdminPage() {
     <div>
       <Navbar onNavigate={setActivePage} />
 
-      {activePage === "/client" && <InfoListAndSearch/>}
+      {activePage === "/client" && <InfoListAndSearch headers={["Имя", "Email", "Адрес","Действие"]} 
+                                                      creteriaList={["Имя", "город", "адресс", "фамилия"]}/>}
       {activePage === "/admin" && <div>Страница админов</div>}
+      {activePage === "/users" && <InfoListAndSearch headers={["Логин", "Имя", "фамилия","Действие"]}
+                                                     creteriaList={["Логин", "Имя", "фамилия"]}/>}
       {activePage === "main" && <div>Фискализатор</div>}
     </div>
   );

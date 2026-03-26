@@ -1,6 +1,6 @@
 import InputRow from "./InputRow";
 
-export default function SearchBox() {
+export default function SearchBox({creteriaList}) {
   return (
     <div className="searchBox">
       <div className="searchHeader">
@@ -10,11 +10,9 @@ export default function SearchBox() {
       </div>
 
       <div className="searchContent">
-        <InputRow placeholder="Имя" />
-        <InputRow placeholder="Фамилия" />
-        <InputRow placeholder="Возраст" />
-        <InputRow placeholder="Город" />
-        <InputRow placeholder="Город" />
+        {creteriaList.map(creteria => (
+          <InputRow key={creteria} placeholder={creteria}/>
+        ))}
       </div>
     </div>
   );
