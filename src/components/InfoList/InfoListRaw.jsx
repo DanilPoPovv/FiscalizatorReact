@@ -3,9 +3,11 @@ import InfoListCell from "./InfoListCell";
 export default function InfoListRaw({ item, onAction }) {
   return (
     <>
-      {Object.entries(item).map(([key, value]) => (
-        <InfoListCell key={key} itemText={value} />
-      ))}
+      {Object.entries(item)
+  .filter(([key]) => key !== "Id")
+  .map(([key, value]) => (
+    <InfoListCell key={key} itemText={value} />
+))}
 
       <InfoListCell
         itemText={

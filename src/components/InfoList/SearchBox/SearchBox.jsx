@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InputRow from "./InputRow";
-import SearchButton from "./SerachButton";
+import SearchButton from "./SearchButton";
 export default function SearchBox({criteriaList, onSearch}) {
   const[values, setValues] = useState({});
 

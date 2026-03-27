@@ -1,14 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InfoListAndSearch from "../InfoList/InfoListWithSearch";
 
 export default function ClientListPage(){
     const [data, setData] = useState([]);
     const [filters, setFilters] = useState({});
 
+    useEffect(() => {
+        getClients();
+    }, []);
     const baseHeaders = 
     {
         "Content-Type": "application/json",
         ///В БУДУЩЕМ ТУТ БУДЕТ BEARER TOKEN
+    }
+    async function getClients() {
+        const res = await fetch("http://localhost:5068/Client", {
+            method : "GET",
+            headers : baseHeaders
+        })
+
+        const result = await res.json();
+
+        setData(result);
     }
     async function handleSearch(newFilters){
         setFilters(newFilters);
@@ -27,10 +40,13 @@ export default function ClientListPage(){
         switch(actionType){
             case "edit":
                 await editClient(requestData);
+                break;
             case "create":
                 await createClient(requestData);
+                break;
             case "delete":
                 await deleteClient(requestData);
+                break;
             default:   
                 throw new Error("Передан не поддерживаемый тип действия")
         }
@@ -85,7 +101,7 @@ export default function ClientListPage(){
     }
     return (
         <InfoListAndSearch
-        headers={["Имя", "Email", "Адрес", "Действие"]}
+        headers={["ИНН", "Наименование", "Адрес", "Действие"]}
         criteriaList={[
         { label: "Имя", field: "name" },
         { label: "Email", field: "email" },
