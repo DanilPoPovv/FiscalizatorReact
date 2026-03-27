@@ -1,0 +1,36 @@
+.modalOverlay {
+  position: fixed;     
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;     
+  z-index: 1000;         
+}
+
+.modalContent {
+  position: relative;
+  background-color: #000b13;
+  padding-left: 10px;
+  padding-right: 15px;
+  padding-top: 0px;
+  border-radius: 8px;
+  min-width: 500px;    
+  max-width: 35vw;      
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.modalButton {
+  color: #80c0ff;
+  background-color: #1a2b40;
+}

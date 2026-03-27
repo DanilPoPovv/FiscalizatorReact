@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import InfoListAndSearch from "../InfoList/InfoListWithSearch";
-
+import Modal from "../ModalPages/Modal";
 export default function ClientListPage(){
     const [data, setData] = useState([]);
     const [filters, setFilters] = useState({});
+    const [modal, setModal] = useState(null);
 
+    const dataNames =[
+        { label: "Имя", field: "name" },
+        { label: "Email", field: "email" },
+        { label: "Адрес", field: "address" },
+        ]
     useEffect(() => {
         getClients();
     }, []);
@@ -12,6 +18,12 @@ export default function ClientListPage(){
     {
         "Content-Type": "application/json",
         ///В БУДУЩЕМ ТУТ БУДЕТ BEARER TOKEN
+    }
+    function performAction(actionType, requestData){
+        setModal({
+            actionType : actionType,
+            data : requestData
+        });
     }
     async function getClients() {
         const res = await fetch("http://localhost:5068/Client", {
@@ -36,21 +48,21 @@ export default function ClientListPage(){
         setData(result);
     }
 
-    async function handleAction(actionType, requestData) {
-        switch(actionType){
+    async function handleConfirm() {
+        switch(modal.actionType){
             case "edit":
-                await editClient(requestData);
+                await editClient(modal.data);
                 break;
             case "create":
-                await createClient(requestData);
+                await createClient(modal.data);
                 break;
             case "delete":
-                await deleteClient(requestData);
+                await deleteClient(modal.data);
                 break;
-            default:   
-                throw new Error("Передан не поддерживаемый тип действия")
         }
-    }
+
+    setModal(null);
+}
     
     async function editClient(requestData) {
         const request = {
@@ -100,16 +112,17 @@ export default function ClientListPage(){
         setData(result);
     }
     return (
+        <div>
         <InfoListAndSearch
         headers={["ИНН", "Наименование", "Адрес", "Действие"]}
-        criteriaList={[
-        { label: "Имя", field: "name" },
-        { label: "Email", field: "email" },
-        { label: "Адрес", field: "address" },
-        ]}
+        criteriaList={dataNames}
         data={data}
         onSearch={handleSearch}
-        onAction={handleAction}
+        onAction={performAction}
         />
+        {modal && (
+            <Modal onClose={() => setModal(null)} onSubmit={handleConfirm} fieldNames={dataNames}/>
+        )}
+    </div>
     )
 }

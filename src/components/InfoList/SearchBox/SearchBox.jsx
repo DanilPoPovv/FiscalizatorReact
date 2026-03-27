@@ -23,7 +23,7 @@ export default function SearchBox({criteriaList, onSearch}) {
           <InputRow key={criteria.field} placeholder={criteria.label}/>
         ))}
       </div>
-      <SearchButton onSearch={handleSearch}/>
+      <SearchButton onAction={handleSearch} buttonText={"Поиск"} style={{ paddingLeft : "805px", paddingBottom : "10px", paddingTop : "10px"}}/>
     </div>
   );
 }

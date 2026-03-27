@@ -1,7 +1,7 @@
-export default function SearchButton(onSearch){
+export default function SearchButton({onClick, buttonText, style}){
     return (
-        <div style={{display : "flex"}}>
-            <button className="searchButton" onClick={onSearch}>Поиск</button>
+        <div style={{...style, display : "flex"}}>
+            <button className="searchButton" onClick={onClick}>{buttonText}</button>
         </div>
     )
 }
