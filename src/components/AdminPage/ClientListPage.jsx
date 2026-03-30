@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react";
 import InfoListAndSearch from "../InfoList/InfoListWithSearch";
 import Modal from "../ModalPages/Modal";
+import {
+    getClients,
+    createClient,
+    editClient,
+    deleteClient
+} from "../../services/clientService.js";
 export default function ClientListPage(){
     const [data, setData] = useState([]);
     const [filters, setFilters] = useState({});
     const [modal, setModal] = useState(null);
 
     const dataNames =[
-        { label: "Имя", field: "name" },
-        { label: "Email", field: "email" },
-        { label: "Адрес", field: "address" },
+        { label: "Имя", field: "Code" },
+        { label: "Email", field: "Name" },
+        { label: "Адреc", field: "Address" },
         ]
     useEffect(() => {
-        getClients();
+        loadClients();
     }, []);
     const baseHeaders = 
     {
@@ -25,92 +31,45 @@ export default function ClientListPage(){
             data : requestData
         });
     }
-    async function getClients() {
-        const res = await fetch("http://localhost:5068/Client", {
-            method : "GET",
-            headers : baseHeaders
-        })
-
-        const result = await res.json();
-
+    async function loadClients(){
+        let result = await getClients();
         setData(result);
     }
     async function handleSearch(newFilters){
         setFilters(newFilters);
-
+        try{
         const res = await fetch("/api/1234", {
             method : "POST",
             headers: baseHeaders,
             body : JSON.stringify(newFilters)
         })
+        }
+        catch(ex){
+            console.log("Error occured", ex.message)
+        }
         const result = await res.json();
 
         setData(result);
     }
+async function handleConfirm() {
+    let result;
 
-    async function handleConfirm() {
-        switch(modal.actionType){
-            case "edit":
-                await editClient(modal.data);
-                break;
-            case "create":
-                await createClient(modal.data);
-                break;
-            case "delete":
-                await deleteClient(modal.data);
-                break;
-        }
+    switch (modal.actionType) {
+        case "edit":
+            result = await editClient(modal.data);
+            break;
+        case "create":
+            result = await createClient(modal.data);
+            break;
+        case "delete":
+            result = await deleteClient(modal.data);
+            break;
+    }
 
+    setData(result);
     setModal(null);
 }
     
-    async function editClient(requestData) {
-        const request = {
-            ClientCode : requestData.ClientCode,
-            NewCode : requestData.NewClientCode,
-            Location : requestData.Location,
-            Name : requestData.Name
-        }
-        const res = await fetch("http://localhost:5068/Client",{
-            method : "PUT",
-            headers: baseHeaders,
-            body : JSON.stringify(request)
-        })
-
-        const result = await res.json();
-
-        setData(result);
-    }
-    async function createClient(requestData) {
-        const request = {
-            ClientCode : requestData.ClientCode,
-            Address : requestData.Address,
-            Name : requestData.Name
-        }
-        const res = await fetch("http://localhost:5068/Client",{
-            method : "POST",
-            headers: baseHeaders,
-            body : JSON.stringify(request)
-        })
-
-        const result = await res.json();
-
-        setData(result);
-    }
-    async function deleteClient(requestData) {
-        const request = {
-            ClientCode : requestData.ClientCode,
-        }
-        const res = await fetch("http://localhost:5068/Client",{
-            method : "DELETE",
-            headers: baseHeaders,
-            body : JSON.stringify(request)
-        })
-
-        const result = await res.json();
-
-        setData(result);
-    }
     return (
         <div>
         <InfoListAndSearch
@@ -121,7 +80,7 @@ export default function ClientListPage(){
         onAction={performAction}
         />
         {modal && (
-            <Modal onClose={() => setModal(null)} onSubmit={handleConfirm} fieldNames={dataNames}/>
+            <Modal onClose={() => setModal(null)} onSubmit={handleConfirm} onChange={(updatedData) => setModal((prev) => ({...prev, data: updatedData}))} fieldNames={dataNames} item={modal.data}/>
         )}
     </div>
     )

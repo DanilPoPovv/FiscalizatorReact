@@ -1,8 +1,8 @@
-export default function InputRow({ placeholder, onChange }) {
+export default function InputRow({ placeholder, onChange, value }) {
   return (
     <div className="inputRow">
       <label className="inputRowLabel">{placeholder}</label>
-      <input onChange={(e) => onChange(e.target.value)} className="inputRowInput"/>
+      <input onChange={onChange} className="inputRowInput" value={value} />
     </div>
   );
 }
