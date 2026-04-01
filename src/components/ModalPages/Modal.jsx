@@ -2,10 +2,14 @@ import InputRow from "../InfoList/SearchBox/InputRow";
 import "./Modal.css";
 import { useState, useEffect} from "react";
 
-export default function Modal({ onClose, onSubmit, onChange, fieldNames, item }) {
-const [values, setValues] = useState(() => ({
-  ...item
-}));
+export default function Modal({ onClose, onSubmit, onChange, fieldNames, item, modalType}) {
+  const initialValues = {};
+  fieldNames.forEach(f => {
+      initialValues[f.field] = item?.[f.field] ?? "";
+  });
+const [values, setValues] = useState(initialValues);
+
+const isReadOnly = modalType === "delete";
 
 const handleChange = (name, value) => {
   const newValues = {...values, [name]: value};
@@ -23,10 +27,11 @@ const handleChange = (name, value) => {
         </div>
   
   {fieldNames.map((field, index) => (
-    <InputRow key={index} placeholder={field.label} onChange={(e) => handleChange(field.field, e.target.value)} value={values[field.field]}/>
+    <InputRow key={index} placeholder={field.label} onChange={(e) => handleChange(field.field, e.target.value)} 
+    disabled={isReadOnly} value={values[field.field]}/>
   ))}
   <div className="modalFooter">
-    <button style={{width : "85px", height : "30px"}} className="modalButton" onClick={handleSubmit}>Submit</button>
+    <button type="button" style={{width : "85px", height : "30px"}} className="modalButton" onClick={handleSubmit}>Submit</button>
   </div>
 </div>
     </div>

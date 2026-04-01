@@ -8,13 +8,13 @@ import {
     deleteClient
 } from "../../services/clientService.js";
 export default function ClientListPage(){
-    const [data, setData] = useState([]);
+    const [clients, setClients] = useState([]);
     const [filters, setFilters] = useState({});
-    const [modal, setModal] = useState(null);
+    const [clientModal, setClientModal] = useState(null);
 
     const dataNames =[
-        { label: "Имя", field: "Code" },
-        { label: "Email", field: "Name" },
+        { label: "Инн", field: "ClientCode" },
+        { label: "Наименование", field: "Name" },
         { label: "Адреc", field: "Address" },
         ]
     useEffect(() => {
@@ -26,15 +26,36 @@ export default function ClientListPage(){
         ///В БУДУЩЕМ ТУТ БУДЕТ BEARER TOKEN
     }
     function performAction(actionType, requestData){
-        setModal({
+        setClientModal({
             actionType : actionType,
-            data : requestData
+            requestData : requestData,
         });
     }
     async function loadClients(){
         let result = await getClients();
-        setData(result);
+        setClients(result);
+        console.log(clients)
     }
+
+    async function updateUserList(updatedUser, actionType) {
+        switch (actionType){
+        case "edit":
+            setClients(prev =>
+                prev.map(item =>
+                    item.Id === updatedUser.Id ? updatedUser : item
+                )
+            );
+            break;
+        case "create":
+            setClients(prev => [...prev, updatedUser]);
+            break;
+        case "delete":
+            setClients(prev =>
+                prev.filter(item => item.Id !== clientModal.requestData.Id)
+            );
+            break;
+    }
+}
     async function handleSearch(newFilters){
         setFilters(newFilters);
         try{
@@ -49,25 +70,24 @@ export default function ClientListPage(){
         }
         const result = await res.json();
 
-        setData(result);
+        setClients(result);
     }
 async function handleConfirm() {
     let result;
-
-    switch (modal.actionType) {
+    switch (clientModal.actionType) {
         case "edit":
-            result = await editClient(modal.data);
+            result = await editClient(clientModal.requestData);
             break;
         case "create":
-            result = await createClient(modal.data);
+            result = await createClient(clientModal.requestData);
             break;
         case "delete":
-            result = await deleteClient(modal.data);
+            await deleteClient(clientModal.requestData);
             break;
     }
 
-    setData(result);
-    setModal(null);
+    updateUserList(result, clientModal.actionType);
+    setClientModal(null);
 }
     
     return (
@@ -75,12 +95,23 @@ async function handleConfirm() {
         <InfoListAndSearch
         headers={["ИНН", "Наименование", "Адрес", "Действие"]}
         criteriaList={dataNames}
-        data={data}
+        data={clients}
         onSearch={handleSearch}
         onAction={performAction}
         />
-        {modal && (
-            <Modal onClose={() => setModal(null)} onSubmit={handleConfirm} onChange={(updatedData) => setModal((prev) => ({...prev, data: updatedData}))} fieldNames={dataNames} item={modal.data}/>
+        {clientModal && (
+            <Modal onClose={() => setClientModal(null)} 
+            onSubmit={handleConfirm} 
+              onChange={(updatedData) =>
+    setClientModal((prev) => ({
+      ...prev,
+      requestData: { ...prev.requestData, ...updatedData },
+    }))
+  }
+            fieldNames={dataNames} 
+            item={clientModal.requestData}
+            modalType={clientModal.actionType}
+            />
         )}
     </div>
     )

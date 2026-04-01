@@ -1,7 +1,8 @@
 const BASE_URL = "http://localhost:5068/Client";
 
 const baseHeaders = {
-    "Content-Type": "application/json",
+  "Content-Type": "application/json",
+  "Authorization": "Bearer " + localStorage.getItem("token")
 };
 
 export async function getClients() {
@@ -31,12 +32,12 @@ export async function createClient(data) {
 
 export async function editClient(data) {
     const request = {
-        ClientId: data.Id,
-        Code: data.Code,
-        Location: data.Address,
+        Id: data.Id,
+        ClientCode: data.ClientCode,
+        Address : data.Address,
         Name: data.Name,
     };
-
+    console.log(request);
     const res = await fetch(BASE_URL, {
         method: "PUT",
         headers: baseHeaders,
@@ -47,11 +48,16 @@ export async function editClient(data) {
 }
 
 export async function deleteClient(data) {
+    console.log(baseHeaders);
     const res = await fetch(BASE_URL, {
         method: "DELETE",
         headers: baseHeaders,
         body: JSON.stringify({ ClientCode: data.ClientCode }),
     });
 
-    return await res.json();
+    if (res.status === 204){
+        return;
+    }
+    const responseData = await res.json();
+    return responseData;
 }
