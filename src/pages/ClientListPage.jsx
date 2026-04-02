@@ -35,7 +35,6 @@ export default function ClientListPage(){
     async function loadClients(){
         let result = await getClients();
         setClients(result);
-        console.log(clients)
     }
 
     async function updateUserList(updatedUser, actionType) {
@@ -57,22 +56,25 @@ export default function ClientListPage(){
             break;
     }
 }
-    async function handleSearch(newFilters){
-        setFilters(newFilters);
-        try{
-        const res = await fetch("/api/1234", {
-            method : "POST",
-            headers: baseHeaders,
-            body : JSON.stringify(newFilters)
-        })
-        }
-        catch(ex){
-            console.log("Error occured", ex.message)
-        }
-        const result = await res.json();
+async function handleSearch(newFilters){
+    console.log(newFilters);
+    setFilters(newFilters);
 
-        setClients(result);
+    let res, result;
+    try {
+        res = await fetch("http://localhost:5068/Client/Search", {
+            method: "POST",
+            headers: baseHeaders,
+            body: JSON.stringify(newFilters)
+        });
+        result = await res.json();
+    } catch(ex){
+        console.log("Error occured", ex.message);
+        return; 
     }
+
+    setClients(result);
+}
 async function handleConfirm() {
     let result;
     switch (clientModal.actionType) {

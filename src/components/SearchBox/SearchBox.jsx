@@ -2,15 +2,16 @@ import { useState } from "react";
 import InputRow from "../Input/InputRow";
 import SearchButton from "./SearchButton";
 import "./SearchBox.css"
+import { preconnect } from "react-dom";
 export default function SearchBox({criteriaList, onSearch}) {
-  const[values, setValues] = useState({});
+const [values, setValues] = useState(() => {
+  const initialValues = {};
+  criteriaList.forEach(criteria => {
+    initialValues[criteria.field] = ""; 
+  });
+  return initialValues;
+});
 
-  function handleSearch(){
-    const newValues = {...values, [field]: value};
-    setValues(newValues);
-
-    onSearch(newValues);
-  }
   return (
     <div className="searchBox">
       <div className="searchHeader">
@@ -21,10 +22,15 @@ export default function SearchBox({criteriaList, onSearch}) {
 
       <div className="searchContent">
         {criteriaList.map(criteria => (
-          <InputRow key={criteria.field} placeholder={criteria.label}/>
+          <InputRow 
+  key={criteria.field}
+  placeholder={criteria.label}
+  value={values[criteria.field]} 
+  onChange={(e) => setValues(prev => ({ ...prev, [criteria.field]: e.target.value }))}
+ />
         ))}
       </div>
-      <SearchButton onAction={handleSearch} buttonText={"Поиск"} style={{ paddingLeft : "805px", paddingBottom : "10px", paddingTop : "10px"}}/>
+      <SearchButton onClick={() => onSearch(values)} buttonText={"Поиск"} style={{ paddingLeft : "805px", paddingBottom : "10px", paddingTop : "10px"}}/>
     </div>
   );
 }

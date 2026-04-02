@@ -1,5 +1,6 @@
 
 import { renderCells } from "./infoListHelper";
+import Cell from "../Cell/Cell";
 export default function InfoListRaw({ item, onAction }) {
   return (
     <>
