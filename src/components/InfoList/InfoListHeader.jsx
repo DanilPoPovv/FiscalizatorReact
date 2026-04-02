@@ -1,10 +1,10 @@
-import InfoListCell from "./InfoListCell";
+import Cell from "../Cell/Cell";
 
 export default function InfoListHeader({ headers, style}) {
   return (
     <>
       {headers.map((header, index) => (
-        <InfoListCell key={index} itemText={header} style={style} />
+        <Cell key={index} itemText={header} style={style} />
       ))}
     </>
   );

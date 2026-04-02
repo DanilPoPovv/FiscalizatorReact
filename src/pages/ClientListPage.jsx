@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import InfoListAndSearch from "../InfoList/InfoListWithSearch";
-import Modal from "../ModalPages/Modal";
+import InfoListAndSearch from "../components/InfoList/InfoListWithSearch.jsx";
+import Modal from "../components/Modal/Modal.jsx";
 import {
     getClients,
     createClient,
     editClient,
     deleteClient
-} from "../../services/clientService.js";
+} from "../services/clientService.js";
 export default function ClientListPage(){
     const [clients, setClients] = useState([]);
     const [filters, setFilters] = useState({});
     const [clientModal, setClientModal] = useState(null);
 
-    const dataNames =[
-        { label: "Инн", field: "ClientCode" },
+    const columns = [
+        { label: "ИНН", field: "ClientCode" },
         { label: "Наименование", field: "Name" },
-        { label: "Адреc", field: "Address" },
-        ]
+        { label: "Адрес", field: "Address" },
+    ];
     useEffect(() => {
         loadClients();
     }, []);
@@ -25,6 +25,7 @@ export default function ClientListPage(){
         "Content-Type": "application/json",
         ///В БУДУЩЕМ ТУТ БУДЕТ BEARER TOKEN
     }
+    
     function performAction(actionType, requestData){
         setClientModal({
             actionType : actionType,
@@ -93,8 +94,8 @@ async function handleConfirm() {
     return (
         <div>
         <InfoListAndSearch
-        headers={["ИНН", "Наименование", "Адрес", "Действие"]}
-        criteriaList={dataNames}
+        headers={columns.map(c => c.label).concat("Действие")}
+        criteriaList={columns}
         data={clients}
         onSearch={handleSearch}
         onAction={performAction}
@@ -108,8 +109,8 @@ async function handleConfirm() {
       requestData: { ...prev.requestData, ...updatedData },
     }))
   }
-            fieldNames={dataNames} 
-            item={clientModal.requestData}
+            fieldNames={columns} 
+            entity={clientModal.requestData}
             modalType={clientModal.actionType}
             />
         )}

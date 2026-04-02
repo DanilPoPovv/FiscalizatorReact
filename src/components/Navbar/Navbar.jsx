@@ -1,5 +1,5 @@
-import "../../styles/Navbar.css";
-import { NavItem } from "../Navbar/NavItem";
+import "./Navbar.css";
+import { NavItem } from "./NavItem";
 
 export function Navbar({ onNavigate }) {
   return (

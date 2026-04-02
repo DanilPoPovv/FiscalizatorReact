@@ -1,6 +1,6 @@
-import { Navbar } from "../Navbar/Navbar";
+import { Navbar } from "../components/Navbar/Navbar";
 import { useState } from "react";
-import InfoListAndSearch from "../InfoList/InfoListWithSearch";
+import InfoListAndSearch from "../components/InfoList/InfoListWithSearch";
 import ClientListPage from "./ClientListPage";
 function AdminPage() {
 

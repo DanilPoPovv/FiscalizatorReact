@@ -1,0 +1,31 @@
+.searchButton {
+  color: #80c0ff;
+  background-color: #1a2b40;
+  width : 95px;
+  height: 30px;
+
+}
+.searchBox {
+  border: 2px solid #444;
+  width: 100%;
+}
+
+.searchHeader {
+  border-bottom: 2px solid gray;
+  margin-bottom: 0px;
+  height: 35px;
+}
+
+.searchTitle {
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+  height: 35px;
+  margin-left: 10px;
+}
+
+.searchContent {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}

@@ -1,15 +1,11 @@
-import InfoListCell from "./InfoListCell";
 
+import { renderCells } from "./infoListHelper";
 export default function InfoListRaw({ item, onAction }) {
   return (
     <>
-      {Object.entries(item)
-  .filter(([key]) => key !== "Id")
-  .map(([key, value]) => (
-    <InfoListCell key={key} itemText={value} />
-))}
+      {renderCells(item)}
 
-      <InfoListCell
+      <Cell
         itemText={
           <div style={{ display: "flex", justifyContent: "center", gap: "5px" }}>
             <button title="Изменить" onClick={() => onAction("edit", item)}>✏️</button>

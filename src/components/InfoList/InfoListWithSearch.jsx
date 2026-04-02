@@ -1,5 +1,5 @@
 import InfoList from "./InfoList"
-import SearchBox from "./SearchBox/SearchBox"
+import SearchBox from "../SearchBox/SearchBox"
 import "../../styles/InfoSearchList.css"
 export default function InfoListAndSearch({headers, criteriaList, data, onSearch, onAction}){
     return (

@@ -1,11 +1,11 @@
-import InputRow from "../InfoList/SearchBox/InputRow";
+import InputRow from "../Input/InputRow";
 import "./Modal.css";
 import { useState, useEffect} from "react";
 
-export default function Modal({ onClose, onSubmit, onChange, fieldNames, item, modalType}) {
+export default function Modal({ onClose, onSubmit, onChange, fieldNames, entity, modalType}) {
   const initialValues = {};
   fieldNames.forEach(f => {
-      initialValues[f.field] = item?.[f.field] ?? "";
+      initialValues[f.field] = entity?.[f.field] ?? "";
   });
 const [values, setValues] = useState(initialValues);
 

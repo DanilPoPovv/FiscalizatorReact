@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginForm from "./components/LoginForm";
-import AdminPage from "./components/AdminPage/AdminPage";
-import ClientPage from "./components/ClientPage";
+import LoginForm from "./pages/LoginPage";
+import AdminPage from "./pages/AdminPage";
+import ClientPage from "./pages/ClientListPage";
 
 function App() {
   return (
