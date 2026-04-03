@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputRow from "../Input/InputRow";
 import SearchButton from "./SearchButton";
+import SearchedInfoDiv from "./SearchedInfoDiv";
 import "./SearchBox.css"
 export default function SearchBox({criteriaList, onSearch}) {
 const [values, setValues] = useState(() => {
@@ -30,6 +31,7 @@ const [values, setValues] = useState(() => {
         ))}
       </div>
       <SearchButton onClick={() => onSearch(values)} buttonText={"Поиск"} style={{ paddingLeft : "813px"}}/>
+        <SearchedInfoDiv />
     </div>
   );
 }

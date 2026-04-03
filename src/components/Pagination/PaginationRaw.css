@@ -1,0 +1,13 @@
+.pagination {
+  display: flex;
+  grid-column: 1 / -1; 
+  width: 100%;
+
+}
+
+.pagination button {
+    width: 45px;
+    height: 30px;
+    background-color: #1a2b40;
+    font-size: 20px;
+}

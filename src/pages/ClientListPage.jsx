@@ -8,7 +8,7 @@ import {
     deleteClient
 } from "../services/clientService.js";
 export default function ClientListPage(){
-    const [clients, setClients] = useState([]);
+    const [clients, setClients] = useState({});
     const [filters, setFilters] = useState({});
     const [clientModal, setClientModal] = useState(null);
 
@@ -37,27 +37,39 @@ export default function ClientListPage(){
         setClients(result);
     }
 
-    async function updateUserList(updatedUser, actionType) {
-        switch (actionType){
-        case "edit":
-            setClients(prev =>
-                prev.map(item =>
-                    item.Id === updatedUser.Id ? updatedUser : item
-                )
-            );
-            break;
-        case "create":
-            setClients(prev => [...prev, updatedUser]);
-            break;
-        case "delete":
-            setClients(prev =>
-                prev.filter(item => item.Id !== clientModal.requestData.Id)
-            );
-            break;
-    }
+   async function updateUserList(updatedUser, actionType) {
+    setClients(prev => {
+        switch (actionType) {
+            case "edit":
+                return {
+                    ...prev,
+                    Items: prev.Items.map(item =>
+                        item.Id === updatedUser.Id ? updatedUser : item
+                    )
+                };
+
+            case "create":
+                return {
+                    ...prev,
+                    Items: [updatedUser, ...prev.Items],
+                    TotalCount: prev.TotalCount + 1
+                };
+
+            case "delete":
+                return {
+                    ...prev,
+                    Items: prev.Items.filter(item =>
+                        item.Id !== clientModal.requestData.Id
+                    ),
+                    TotalCount: prev.TotalCount - 1
+                };
+
+            default:
+                return prev;
+        }
+    });
 }
 async function handleSearch(newFilters){
-    console.log(newFilters);
     setFilters(newFilters);
 
     let res, result;

@@ -1,17 +1,26 @@
 const BASE_URL = "http://localhost:5068/Client";
-
+const SEARCH_URL = BASE_URL.concat("/Search");
 const baseHeaders = {
   "Content-Type": "application/json",
   "Authorization": "Bearer " + localStorage.getItem("token")
 };
 
 export async function getClients() {
-    const res = await fetch(BASE_URL, {
-        method: "GET",
+    const noFilterRequest = {
+        ClientCode : "",
+        Name : "",
+        Address : "",
+        Page : 1,
+        PageSize : 10
+    }
+    const res = await fetch(SEARCH_URL, {
+        body : JSON.stringify(noFilterRequest),
+        method: "POST",
         headers: baseHeaders,
     });
 
-    return await res.json();
+    const data = await res.json();
+    return data;
 }
 
 export async function createClient(data) {
