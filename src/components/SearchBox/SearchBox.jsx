@@ -29,7 +29,7 @@ const [values, setValues] = useState(() => {
  />
         ))}
       </div>
-      <SearchButton onClick={() => onSearch(values)} buttonText={"Поиск"} style={{ paddingLeft : "830px"}}/>
+      <SearchButton onClick={() => onSearch(values)} buttonText={"Поиск"} style={{ paddingLeft : "813px"}}/>
     </div>
   );
 }

@@ -3,10 +3,9 @@
   display: flex;
   max-width: 45%;
   align-items: center;
-  padding: 7px;
-  gap: 1px;
+  padding: 2px;
+  gap: 7px;
   color: #80c0ff;
-  gap: 8px;
 }
 
 .inputRowLabel {
