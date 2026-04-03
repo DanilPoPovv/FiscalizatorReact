@@ -37,7 +37,6 @@ export async function editClient(data) {
         Address : data.Address,
         Name: data.Name,
     };
-    console.log(request);
     const res = await fetch(BASE_URL, {
         method: "PUT",
         headers: baseHeaders,

@@ -8,3 +8,14 @@ html,body {
   background-position: center; 
   background-repeat: no-repeat; 
 }
+
+
+button {
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+button:hover {
+  background-color: #010e25; 
+  color: white; 
+  cursor: pointer; 
+}

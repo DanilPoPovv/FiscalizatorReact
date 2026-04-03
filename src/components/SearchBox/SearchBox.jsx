@@ -2,7 +2,6 @@ import { useState } from "react";
 import InputRow from "../Input/InputRow";
 import SearchButton from "./SearchButton";
 import "./SearchBox.css"
-import { preconnect } from "react-dom";
 export default function SearchBox({criteriaList, onSearch}) {
 const [values, setValues] = useState(() => {
   const initialValues = {};
@@ -30,7 +29,7 @@ const [values, setValues] = useState(() => {
  />
         ))}
       </div>
-      <SearchButton onClick={() => onSearch(values)} buttonText={"Поиск"} style={{ paddingLeft : "805px", paddingBottom : "10px", paddingTop : "10px"}}/>
+      <SearchButton onClick={() => onSearch(values)} buttonText={"Поиск"} style={{ paddingLeft : "830px"}}/>
     </div>
   );
 }

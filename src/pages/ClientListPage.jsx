@@ -101,6 +101,7 @@ async function handleConfirm() {
         data={clients}
         onSearch={handleSearch}
         onAction={performAction}
+        createButtonText={"Добавить клиента"}
         />
         {clientModal && (
             <Modal onClose={() => setClientModal(null)} 
