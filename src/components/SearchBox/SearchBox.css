@@ -20,18 +20,20 @@
   height: 35px;
 }
 
-.searchTitle {
-  color: white;
+.hidSearchButton {
   width: 100%;
-  margin-top: 10px;
   height: 35px;
-  margin-left: 10px;
+  background-color: #000b13;
+  border: none;
+  text-align: left;
+  padding-left: 25px;
+  color: #80c0ff;
+  font-size: 15px;
 }
 
 .searchContent  {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
 }
 
 .searchContent .inputRow {
