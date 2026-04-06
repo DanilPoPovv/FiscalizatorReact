@@ -9,9 +9,15 @@ import {
 } from "../services/clientService.js";
 export default function ClientListPage(){
     const [clients, setClients] = useState({});
-    const [filters, setFilters] = useState({});
     const [clientModal, setClientModal] = useState(null);
-
+    const [filters, setFilters] = useState(
+        {
+        ClientCode : "",
+        Name : "",
+        Address : "",
+        Page : 1,
+        PageSize : 10
+        });
     const columns = [
         { label: "ИНН", field: "ClientCode" },
         { label: "Наименование", field: "Name" },
@@ -69,15 +75,22 @@ export default function ClientListPage(){
         }
     });
 }
-async function handleSearch(newFilters){
-    setFilters(newFilters);
-
+async function handleSearch(newFilters= {}, page = 1){
+    console.log(newFilters);
+    console.log(page)
+        const request = {
+        ...filters,
+        ...newFilters,
+        Page: page
+    };
+    setFilters(request);
+    console.log(request);
     let res, result;
     try {
         res = await fetch("http://localhost:5068/Client/Search", {
             method: "POST",
             headers: baseHeaders,
-            body: JSON.stringify(newFilters)
+            body: JSON.stringify(request)
         });
         result = await res.json();
     } catch(ex){

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import InputRow from "../Input/InputRow";
 import SearchButton from "./SearchButton";
 import SearchedInfoDiv from "./SearchedInfoDiv";
 import "./SearchBox.css"
-export default function SearchBox({criteriaList, onSearch}) {
+
+export default function SearchBox({criteriaList, onSearch, itemCount}) {
 const [values, setValues] = useState(() => {
   const initialValues = {};
   criteriaList.forEach(criteria => {
@@ -11,7 +12,14 @@ const [values, setValues] = useState(() => {
   });
   return initialValues;
 });
-
+const[hasSearched,setHasSearched] = useState(false);
+ const hasAnyValue = Object.values(values).some(Boolean);
+ function filteredSearch(){
+  if(hasAnyValue){
+    onSearch(values);
+    setHasSearched(true);
+  }
+ }
   return (
     <div className="searchBox">
       <div className="searchHeader">
@@ -30,8 +38,9 @@ const [values, setValues] = useState(() => {
  />
         ))}
       </div>
-      <SearchButton onClick={() => onSearch(values)} buttonText={"Поиск"} style={{ paddingLeft : "813px"}}/>
-        <SearchedInfoDiv />
+      <SearchButton onClick={filteredSearch} buttonText={"Поиск"} style={{ paddingLeft : "813px"}}/>
+         {hasSearched && <SearchedInfoDiv totalSearchCount={itemCount} />}
     </div>
+    
   );
 }

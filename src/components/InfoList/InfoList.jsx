@@ -3,7 +3,7 @@ import InfoListRaw from "./InfoListRaw";
 import InfoListHeader from "./InfoListHeader";
 import PaginationRaw from "../Pagination/PaginationRaw";
 
-export default function InfoList({listHeaders, data, onAction, createButtonText}) {
+export default function InfoList({listHeaders, data, onAction, createButtonText, changePageAction}) {
  
 if (!data.Items) {
   return <div>Загрузка...</div>;
@@ -24,8 +24,7 @@ return (
     {data.Items.map(item => (
       <InfoListRaw key={item.Id} item={item} onAction={onAction} />
     ))}
-    {console.log(data.TotalCount)}
-    <PaginationRaw totalSearchCount={data.TotalCount} />
+    <PaginationRaw totalSearchCount={data.TotalCount} changePageAction={changePageAction}/>
   </div>
 );
 }

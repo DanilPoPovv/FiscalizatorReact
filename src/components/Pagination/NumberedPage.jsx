@@ -1,6 +1,6 @@
 
-export default function NumberedPage({pageNumber, onClick}){
+export default function NumberedPage({pageNumber, onClick, style}){
    return (
-    <button onClick={onClick}>{pageNumber}</button>
+    <button onClick={onClick} style={style}>{pageNumber}</button>
    ) 
 }

@@ -4,9 +4,9 @@ import "../../styles/InfoSearchList.css"
 export default function InfoListAndSearch({headers, criteriaList, data, onSearch, onAction, createButtonText}){
     return (
         <div className="SearchWithListBox">
-            <SearchBox criteriaList={criteriaList} onSearch={onSearch}/>
+            <SearchBox criteriaList={criteriaList} onSearch={onSearch} itemCount={data.TotalCount}/>
                     <hr style={{ backgroundColor: "gray", height: "2px", border: "none", margin : "20px",width : "100%", marginLeft : "0px" }} />
-            <InfoList listHeaders={headers} data={data} onAction={onAction} createButtonText={createButtonText}/>
+            <InfoList listHeaders={headers} data={data} onAction={onAction} createButtonText={createButtonText} changePageAction={onSearch}/>
         </div>
     )
 }
