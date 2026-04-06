@@ -12,13 +12,15 @@ const [values, setValues] = useState(() => {
   });
   return initialValues;
 });
-const[hasSearched,setHasSearched] = useState(false);
+const[hasSearch,setHasSearched] = useState(false);
  const hasAnyValue = Object.values(values).some(Boolean);
  function filteredSearch(){
   if(hasAnyValue){
     onSearch(values);
     setHasSearched(true);
+    return;
   }
+  setHasSearched(false);
  }
   return (
     <div className="searchBox">
@@ -39,7 +41,7 @@ const[hasSearched,setHasSearched] = useState(false);
         ))}
       </div>
       <SearchButton onClick={filteredSearch} buttonText={"Поиск"} style={{ paddingLeft : "813px"}}/>
-         {hasSearched && <SearchedInfoDiv totalSearchCount={itemCount} />}
+         {hasSearch && <SearchedInfoDiv totalSearchCount={itemCount} />}
     </div>
     
   );
