@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import "../Pagination/PaginationRaw.css";
-import NumberedPage from "./NumberedPage";
+import PageNumber from "./NumberedPage";
 import { useState } from "react";
 export default function PaginationRaw({ changePageAction, totalSearchCount }) {
     const pageSize = 10;
@@ -28,7 +28,7 @@ export default function PaginationRaw({ changePageAction, totalSearchCount }) {
 
     <div className="leftPages">
         {leftPages.map((page) => (
-            <NumberedPage
+            <PageNumber
                 key={page}
                 pageNumber={page}
                 onClick={() => ChangeAndSetCurrentPage(page)}
@@ -38,7 +38,7 @@ export default function PaginationRaw({ changePageAction, totalSearchCount }) {
 
     <div className="rightPages">
         {rightPages.map((page) => (
-            <NumberedPage
+            <PageNumber
                 key={page}
                 pageNumber={page}
                 onClick={() => ChangeAndSetCurrentPage(page)}

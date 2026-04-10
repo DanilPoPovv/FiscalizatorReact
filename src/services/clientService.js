@@ -1,9 +1,6 @@
+import { getBaseHeaders } from "./baseHeaderProvider.js";
 const BASE_URL = "http://localhost:5068/Client";
 const SEARCH_URL = BASE_URL.concat("/Search");
-const baseHeaders = {
-  "Content-Type": "application/json",
-  "Authorization": "Bearer " + localStorage.getItem("token")
-};
 
 export async function getClients() {
     const noFilterRequest = {
@@ -16,7 +13,7 @@ export async function getClients() {
     const res = await fetch(SEARCH_URL, {
         body : JSON.stringify(noFilterRequest),
         method: "POST",
-        headers: baseHeaders,
+        headers: getBaseHeaders(),
     });
 
     const data = await res.json();
@@ -32,7 +29,7 @@ export async function createClient(data) {
 
     const res = await fetch(BASE_URL, {
         method: "POST",
-        headers: baseHeaders,
+        headers: getBaseHeaders(),
         body: JSON.stringify(request),
     });
 
@@ -48,7 +45,7 @@ export async function editClient(data) {
     };
     const res = await fetch(BASE_URL, {
         method: "PUT",
-        headers: baseHeaders,
+        headers: getBaseHeaders(),
         body: JSON.stringify(request),
     });
 
@@ -59,7 +56,7 @@ export async function deleteClient(data) {
     console.log(baseHeaders);
     const res = await fetch(BASE_URL, {
         method: "DELETE",
-        headers: baseHeaders,
+        headers: getBaseHeaders(),
         body: JSON.stringify({ ClientCode: data.ClientCode }),
     });
 

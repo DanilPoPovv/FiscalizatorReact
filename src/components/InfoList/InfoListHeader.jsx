@@ -1,10 +1,10 @@
 import Cell from "../Cell/Cell";
 
-export default function InfoListHeader({ headers, style}) {
+export default function InfoListHeader({ columns, style}) {
   return (
     <>
-      {headers.map((header, index) => (
-        <Cell key={index} itemText={header} style={style} />
+      {columns.map((c) => (
+        <Cell key={c.field} itemText={c.label} style={style} />
       ))}
     </>
   );

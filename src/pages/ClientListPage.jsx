@@ -7,6 +7,7 @@ import {
     editClient,
     deleteClient
 } from "../services/clientService.js";
+import { createColumn } from "../services/columnFactory.js"
 export default function ClientListPage(){
     const [clients, setClients] = useState({});
     const [clientModal, setClientModal] = useState(null);
@@ -18,10 +19,12 @@ export default function ClientListPage(){
         Page : 1,
         PageSize : 10
         });
+        
     const columns = [
-        { label: "ИНН", field: "ClientCode" },
-        { label: "Наименование", field: "Name" },
-        { label: "Адрес", field: "Address" },
+        createColumn("ИНН","ClientCode", {visible : true, isSearchCriteria : true}),
+        createColumn("Наименование","Name", {visible : true, isSearchCriteria : true}),
+        createColumn("Адрес","Address", {visible : true, isSearchCriteria : true}),
+        createColumn("Действие","__action", {isAction : true}),
     ];
     useEffect(() => {
         loadClients();
@@ -43,7 +46,7 @@ export default function ClientListPage(){
         setClients(result);
     }
 
-   async function updateUserList(updatedUser, actionType) {
+   async function updateClientList(updatedUser, actionType) {
     setClients(prev => {
         switch (actionType) {
             case "edit":
@@ -75,8 +78,8 @@ export default function ClientListPage(){
         }
     });
 }
-async function handleSearch(newFilters= {}, page = 1){
-    console.log(newFilters);
+async function handleSearch({newFilters= {}, page = 1 } = {}){
+    
     console.log(page)
         const request = {
         ...filters,
@@ -114,15 +117,14 @@ async function handleConfirm() {
             break;
     }
 
-    updateUserList(result, clientModal.actionType);
+    updateClientList(result, clientModal.actionType);
     setClientModal(null);
 }
     
     return (
         <div>
         <InfoListAndSearch
-        headers={columns.map(c => c.label).concat("Действие")}
-        criteriaList={columns}
+        columns={columns}
         data={clients}
         onSearch={handleSearch}
         onAction={performAction}

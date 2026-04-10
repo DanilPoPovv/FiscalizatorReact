@@ -1,12 +1,13 @@
 import InfoList from "./InfoList"
 import SearchBox from "../SearchBox/SearchBox"
 import "../../styles/InfoSearchList.css"
-export default function InfoListAndSearch({headers, criteriaList, data, onSearch, onAction, createButtonText}){
+export default function InfoListAndSearch({columns, data, onSearch, onAction, createButtonText}){
     return (
         <div className="SearchWithListBox">
-            <SearchBox criteriaList={criteriaList} onSearch={onSearch} itemCount={data.TotalCount}/>
+            {console.log(columns)}
+            <SearchBox columns={columns} onSearch={onSearch} itemCount={data.TotalCount}/>
                     <hr style={{ backgroundColor: "gray", height: "2px", border: "none", margin : "20px",width : "100%", marginLeft : "0px" }} />
-            <InfoList listHeaders={headers} data={data} onAction={onAction} createButtonText={createButtonText} changePageAction={onSearch}/>
+            <InfoList columns={columns} data={data} onAction={onAction} createButtonText={createButtonText} changePageAction={onSearch}/>
         </div>
     )
 }

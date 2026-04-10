@@ -4,9 +4,11 @@ import SearchButton from "./SearchButton";
 import SearchedInfoDiv from "./SearchedInfoDiv";
 import "./SearchBox.css"
 
-export default function SearchBox({criteriaList, onSearch, itemCount}) {
+export default function SearchBox({columns, onSearch, itemCount}) {
+const searchCriterias = columns.filter(c => c.isSearchCriteria);
 const [values, setValues] = useState(() => {
   const initialValues = {};
+  const criteriaList = columns.filter(c => c.isSearchCriteria);
   criteriaList.forEach(criteria => {
     initialValues[criteria.field] = ""; 
   });
@@ -38,7 +40,7 @@ const[hasSearch,setHasSearched] = useState(false);
 <div className="searchContent">
   {openSearchPanel && (
     <>
-      {criteriaList.map(criteria => (
+      {searchCriterias.map(criteria => (
         <InputRow 
           key={criteria.field}
           placeholder={criteria.label}

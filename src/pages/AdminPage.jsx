@@ -1,21 +1,15 @@
 import { Navbar } from "../components/Navbar/Navbar";
-import { useState } from "react";
-import InfoListAndSearch from "../components/InfoList/InfoListWithSearch";
-import ClientListPage from "./ClientListPage";
-function AdminPage() {
+import { Outlet, useNavigate } from "react-router-dom";
 
-    const [activePage, setActivePage] = useState("admin")
+function AdminPage() {
+  const navigate = useNavigate();
 
   return (
     <div>
-      <Navbar onNavigate={setActivePage} />
-
-      {activePage === "/client" && <ClientListPage/>}
-      {activePage === "/admin" && <div>Страница админов</div>}
-      {activePage === "/users" && <InfoListAndSearch headers={["Логин", "Имя", "фамилия","Действие"]}
-                                                     creteriaList={["Логин", "Имя", "фамилия"]}/>}
-      {activePage === "main" && <div>Фискализатор</div>}
+      <Navbar onNavigate={navigate} />
+      <Outlet />
     </div>
   );
 }
+
 export default AdminPage;
