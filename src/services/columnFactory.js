@@ -4,6 +4,7 @@ export function createColumn(label,field,options = {}){
         field : field, 
         visible : options.visible ?? true,
         isSearchCriteria: options.isSearchCriteria ?? false,
-        isAction: options.isAction ?? false
+        isAction: options.isAction ?? false,
+        formModes : options.formModes
     }
 }

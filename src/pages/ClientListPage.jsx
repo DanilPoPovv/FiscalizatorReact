@@ -21,11 +21,15 @@ export default function ClientListPage(){
         });
         
     const columns = [
-        createColumn("ИНН","ClientCode", {visible : true, isSearchCriteria : true}),
-        createColumn("Наименование","Name", {visible : true, isSearchCriteria : true}),
-        createColumn("Адрес","Address", {visible : true, isSearchCriteria : true}),
+        createColumn("ИНН","ClientCode", {visible : true, isSearchCriteria : true, formModes : ["create", "edit", "delete"]}),
+        createColumn("Наименование","Name", {visible : true, isSearchCriteria : true, formModes : ["create", "edit", "delete"]}),
+        createColumn("Адрес","Address", {visible : true, isSearchCriteria : true, formModes : ["create", "edit", "delete"]}),
         createColumn("Действие","__action", {isAction : true}),
     ];
+    const requestFields = columns.filter(c =>
+  !c.isAction &&
+  c.formModes?.includes(clientModal?.actionType)
+);
     useEffect(() => {
         loadClients();
     }, []);
@@ -139,7 +143,7 @@ async function handleConfirm() {
       requestData: { ...prev.requestData, ...updatedData },
     }))
   }
-            fieldNames={columns} 
+            requestFieldNames={requestFields} 
             entity={clientModal.requestData}
             modalType={clientModal.actionType}
             />

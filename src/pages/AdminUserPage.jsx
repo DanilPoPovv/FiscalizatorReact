@@ -21,15 +21,16 @@ export default function UserListPage() {
   });
   
   const columns = [
-    createColumn("Имя", "Name", {isSearchCriteria: true }),
-    createColumn("Email", "Email", { isSearchCriteria: true }),
-    createColumn("Пароль", "Password", { visible: false }),
-    createColumn("Новый пароль", "NewPassword", { visible : false }),
+    createColumn("Имя", "Name", {isSearchCriteria: true , formModes : ["create", "edit", "delete"]}),
+    createColumn("Email", "Email", { isSearchCriteria: true, formModes : ["create", "edit", "delete"] }),
+    createColumn("Пароль", "Password", { visible: false , formModes : ["create", "edit"] }),
+    createColumn("Новый пароль", "NewPassword", { visible : false, formModes : ["edit"] }),
     createColumn("Действие", "__action", { isAction: true }),
     ];
-  console.log(columns);
-  const visibleColumns = columns.filter(c => c.visible);
-  const requestFields = columns.filter(c => !c.isAction);
+  const requestFields = columns.filter(c =>
+  !c.isAction &&
+  c.formModes?.includes(userModal?.actionType)
+);
   useEffect(() => {
     loadUsers();
   }, []);

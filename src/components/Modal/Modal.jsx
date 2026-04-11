@@ -2,9 +2,9 @@ import InputRow from "../Input/InputRow";
 import "./Modal.css";
 import { useState, useEffect} from "react";
 
-export default function Modal({ onClose, onSubmit, onChange, fieldNames, entity, modalType}) {
+export default function Modal({ onClose, onSubmit, onChange, requestFieldNames, entity, modalType}) {
   const initialValues = {};
-  fieldNames.forEach(f => {
+  requestFieldNames.forEach(f => {
       initialValues[f.field] = entity?.[f.field] ?? "";
   });
 const [values, setValues] = useState(initialValues);
@@ -26,7 +26,7 @@ const handleChange = (name, value) => {
             <button style={{width : "30px", height : "30px"}} className="modalButton" onClick={onClose}>X</button>
         </div>
   
-  {fieldNames.map((field, index) => (
+  {requestFieldNames.map((field, index) => (
     <InputRow key={index} placeholder={field.label} onChange={(e) => handleChange(field.field, e.target.value)} 
     disabled={isReadOnly} value={values[field.field]}/>
   ))}
