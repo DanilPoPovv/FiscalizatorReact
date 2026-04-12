@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import InfoListAndSearch from "../components/InfoList/InfoListWithSearch.jsx";
 import Modal from "../components/Modal/Modal.jsx";
 import { getUsers,searchUsersWithFilters, createUser,
   updateUser,deleteUser } 
   from "../services/adminUserService.js"
 import { createColumn } from "../services/columnFactory.js"
+import {AlertProvider} from "../components/Alerts/AlertContext.jsx"
 const baseHeaders = {
   "Content-Type": "application/json",
   "Authorization": "Bearer " + localStorage.getItem("token")
 };
 
 export default function UserListPage() {
+  const {showError, showSuccess} = useContext(AlertProvider);
   const [users, setUsers] = useState({});
   const [userModal, setUserModal] = useState(null);
   const [filters, setFilters] = useState({
@@ -96,7 +98,7 @@ export default function UserListPage() {
 
   async function handleConfirm() {
     let result;
-
+    try {
     switch (userModal.actionType) {
       case "create":
         result = await createUser(userModal.requestData);
@@ -108,7 +110,12 @@ export default function UserListPage() {
         result = await deleteUser(userModal.requestData);
         break;
     }
-
+  }
+  catch(ex){
+    showError(ex.message);
+    return;
+  }
+    showSuccess("Успех");
     updateUserList(result, userModal.actionType);
     setUserModal(null);
   }
