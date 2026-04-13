@@ -86,7 +86,7 @@ export default function UserListPage() {
     };
 
     setFilters(request);
-
+    console.log(newFilters);
     const result = await searchUsersWithFilters(request);
 
     setUsers(result);
@@ -115,7 +115,15 @@ export default function UserListPage() {
     updateUserList(result, userModal.actionType);
     setUserModal(null);
   }
-
+  function handleModalChange(updatedData) {
+  setClientModal(prev => ({
+    ...prev,
+    requestData: {
+      ...prev.requestData,
+      ...updatedData
+    }
+  }));
+}
   return (
     <div>
       <InfoListAndSearch
@@ -130,15 +138,7 @@ export default function UserListPage() {
         <Modal
           onClose={() => setUserModal(null)}
           onSubmit={handleConfirm}
-          onChange={(updatedData) =>
-            setUserModal(prev => ({
-              ...prev,
-              requestData: {
-                ...prev.requestData,
-                ...updatedData
-              }
-            }))
-          }
+          onChange={onChange={handleModalChange}}
           requestFieldNames={requestFields}
           entity={userModal.requestData}
           modalType={userModal.actionType}

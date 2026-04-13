@@ -27,7 +27,15 @@ export default function ClientListPage() {
     Page: 1,
     PageSize: 10
   });
-
+  function handleModalChange(updatedData) {
+  setClientModal(prev => ({
+    ...prev,
+    requestData: {
+      ...prev.requestData,
+      ...updatedData
+    }
+  }));
+}
   const columns = [
     createColumn("ИНН", "ClientCode", {
       isSearchCriteria: true,
@@ -151,15 +159,7 @@ export default function ClientListPage() {
         <Modal
           onClose={() => setClientModal(null)}
           onSubmit={handleConfirm}
-          onChange={updatedData =>
-            setClientModal(prev => ({
-              ...prev,
-              requestData: {
-                ...prev.requestData,
-                ...updatedData
-              }
-            }))
-          }
+          onChange={onChange={handleModalChange}}
           requestFieldNames={requestFields}
           entity={clientModal.requestData}
           modalType={clientModal.actionType}

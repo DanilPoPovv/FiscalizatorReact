@@ -18,7 +18,7 @@ const[hasSearch,setHasSearched] = useState(false);
  const hasAnySearchCriteria = Object.values(values).some(Boolean);
  function filteredSearch(){
   if(hasAnySearchCriteria){
-    onSearch(values);
+    onSearch({newFilters : values});
     setHasSearched(true);
     return;
   }
