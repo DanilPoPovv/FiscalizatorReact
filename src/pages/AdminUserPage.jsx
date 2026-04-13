@@ -5,14 +5,10 @@ import { getUsers,searchUsersWithFilters, createUser,
   updateUser,deleteUser } 
   from "../services/adminUserService.js"
 import { createColumn } from "../services/columnFactory.js"
-import {AlertProvider} from "../components/Alerts/AlertContext.jsx"
-const baseHeaders = {
-  "Content-Type": "application/json",
-  "Authorization": "Bearer " + localStorage.getItem("token")
-};
-
+import {AlertContext} from "../components/Alerts/AlertContext.jsx"
+import {getSuccessMessage} from "../services/textHelper.js"
 export default function UserListPage() {
-  const {showError, showSuccess} = useContext(AlertProvider);
+  const {showError, showSuccess} = useContext(AlertContext);
   const [users, setUsers] = useState({});
   const [userModal, setUserModal] = useState(null);
   const [filters, setFilters] = useState({
@@ -115,7 +111,7 @@ export default function UserListPage() {
     showError(ex.message);
     return;
   }
-    showSuccess("Успех");
+    showSuccess(getSuccessMessage(userModal.actionType, `Пользователь`));
     updateUserList(result, userModal.actionType);
     setUserModal(null);
   }
@@ -143,7 +139,7 @@ export default function UserListPage() {
               }
             }))
           }
-          fieldNames={requestFields}
+          requestFieldNames={requestFields}
           entity={userModal.requestData}
           modalType={userModal.actionType}
         />

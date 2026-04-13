@@ -1,11 +1,9 @@
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
 import "./ErrorAlert.css";
 
-const AlertContext = createContext();
+export const AlertContext = createContext();
 
-export function useAlert() {
-  return useContext(AlertContext);
-}
+
 
 export function AlertProvider({ children }) {
   const [alert, setAlert] = useState(null);
@@ -21,6 +19,15 @@ export function AlertProvider({ children }) {
   function closeAlert() {
     setAlert(null);
   }
+  useEffect(() => {
+    if (!alert || alert.type === "error") return;
+
+    const timer = setTimeout(() => {
+      closeAlert();
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [alert]);
 
   return (
     <AlertContext.Provider value={{ showError, showSuccess }}>
@@ -28,13 +35,13 @@ export function AlertProvider({ children }) {
 
       {alert && (
         <div
-          className="errorAlert"
+          className="alert"
           style={{
-            borderColor: alert.type === "success" ? "#010e25" : "red"
+            borderColor: alert.type === "success" ? "#80c0ff" : "red"
           }}
         >
-          <span>{alert.text}</span>
-          <button onClick={closeAlert}>✖</button>
+          <span style={{color : "#80c0ff"}}>{alert.text}</span>
+          <button className="alertClose" onClick={closeAlert}>✖</button>
         </div>
       )}
     </AlertContext.Provider>

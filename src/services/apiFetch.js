@@ -1,3 +1,5 @@
+import { getBaseHeaders } from "./baseHeaderProvider";
+
 export default async function apiFetch(url, options = {}) {
   try {
     const response = await fetch(url, {

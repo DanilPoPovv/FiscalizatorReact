@@ -1,7 +1,23 @@
-.ErrorAlert {
+.alert {
     color : #1a2b40;
     box-sizing: border-box;
-    border-radius: 4px;
-    width: 10vh;
-    height: 5vh;
+    border-radius: 10px;
+    width: 33vh;
+    height: 7vh;
+    top: 8.5%;
+    right: 42.5%;
+    position: absolute;
+    border : 5.5px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.alertClose{
+    background-color: #000b13;
+    position: absolute;
+    top: 10%;
+    right: 3%;
+    border: none;
+    font-size: 23px;
+    color: #80c0ff;
 }

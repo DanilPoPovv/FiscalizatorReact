@@ -1,95 +1,70 @@
-import { getBaseHeaders } from "./baseHeaderProvider.js";
+import apiFetch from "./apiFetch.js";
 
-const baseAdminClientUrl = "http://localhost:5068";
-const baseAdminClientSearchUrl = baseAdminClientUrl + "/SearchAdmin";
-  const searchRequest = {
-    Page : 1,
-    PageSize : 10,
-    Name : "",
-    Email : ""
-  }
+const BASE_URL = "http://localhost:5068";
+const SEARCH_URL = BASE_URL + "/SearchAdmin";
+
+const searchRequest = {
+  Page: 1,
+  PageSize: 10,
+  Name: "",
+  Email: ""
+};
+
 export async function getUsers() {
-  const response = await fetch(baseAdminClientSearchUrl,
-    {
-      method : "POST",
-      body : JSON.stringify(searchRequest),
-      headers : getBaseHeaders()
-    }
-  )
-  return await response.json();
+  return await apiFetch(SEARCH_URL, {
+    method: "POST",
+    body: searchRequest
+  });
 }
 
-
-export async function searchUsersWithFilters(filters){
+export async function searchUsersWithFilters(filters) {
   const request = {
     ...searchRequest,
-    Name : filters.Name,
-    Email : filters.Email,
-  }
+    Name: filters.Name,
+    Email: filters.Email
+  };
 
-  const response = await fetch(baseAdminClientSearchUrl, {
-    method : "POST",
-    body : JSON.searchRequest(request),
-    headers : getBaseHeaders()
+  return await apiFetch(SEARCH_URL, {
+    method: "POST",
+    body: request
   });
-
-  responseResult = await response.json();
-
-  return responseResult;
 }
 
-export async function createUser(request){
-  request = {
-    Name : request.Name,
-    Email : request.Email,
-    Password : request.Password
-  }
-  const response = await fetch(baseAdminClientUrl + "/CreateGlobalAdmin", {
-    method : "POST",
-    body : JSON.stringify(request),
-    headers : getBaseHeaders()
+export async function createUser(request) {
+  const body = {
+    Name: request.Name,
+    Email: request.Email,
+    Password: request.Password
+  };
+
+  return await apiFetch(BASE_URL + "/CreateGlobalAdmin", {
+    method: "POST",
+    body
   });
-
-  const responseResult = await response.json();
-
-  return responseResult;
 }
 
-export async function updateUser(request){
-  request = {
-    Id : request.Id,
-    Name : request.Name,
-    Email : request.Email,
-    OldPassword : request.Password,
-    NewPassword : request.NewPassword
-  }
-  const response = await fetch(baseAdminClientUrl + "/UpdateAdmin", {
-    method : "PUT",
-    body : JSON.stringify(request),
-    headers : getBaseHeaders()
+export async function updateUser(request) {
+  const body = {
+    Id: request.Id,
+    Name: request.Name,
+    Email: request.Email,
+    OldPassword: request.Password,
+    NewPassword: request.NewPassword
+  };
+
+  return await apiFetch(BASE_URL + "/UpdateAdmin", {
+    method: "PUT",
+    body
   });
-
-  const responseResult = await response.json();
-
-  return responseResult;
 }
 
+export async function deleteUser(request) {
+  const body = {
+    Id: request.Id
+  };
 
-export async function deleteUser(request){
-  request = {
-    Id : request.Id
-  }
-
-  const response = await fetch(baseAdminClientUrl + "/Delete", {
-    method : "DELETE",
-    body : JSON.stringify(request),
-    headers : getBaseHeaders()
+  return await apiFetch(BASE_URL + "/Delete", {
+    method: "DELETE",
+    body
   });
-
-  const responseResult = await response.json();
-  if (responseResult.status === 204){
-    return;
-  }
-  return responseResult;
 }
-
