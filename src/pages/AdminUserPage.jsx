@@ -138,7 +138,7 @@ export default function UserListPage() {
         <Modal
           onClose={() => setUserModal(null)}
           onSubmit={handleConfirm}
-          onChange={onChange={handleModalChange}}
+          onChange={handleModalChange}
           requestFieldNames={requestFields}
           entity={userModal.requestData}
           modalType={userModal.actionType}
