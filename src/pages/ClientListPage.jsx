@@ -159,7 +159,7 @@ export default function ClientListPage() {
         <Modal
           onClose={() => setClientModal(null)}
           onSubmit={handleConfirm}
-          onChange={onChange={handleModalChange}}
+          onChange={handleModalChange}
           requestFieldNames={requestFields}
           entity={clientModal.requestData}
           modalType={clientModal.actionType}
