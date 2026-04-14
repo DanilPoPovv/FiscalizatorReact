@@ -1,149 +1,56 @@
-import { useEffect, useState, useContext } from "react";
-import InfoListAndSearch from "../components/InfoList/InfoListWithSearch.jsx";
-import Modal from "../components/Modal/Modal.jsx";
-import { getUsers,searchUsersWithFilters, createUser,
-  updateUser,deleteUser } 
-  from "../services/adminUserService.js"
-import { createColumn } from "../services/columnFactory.js"
-import {AlertContext} from "../components/Alerts/AlertContext.jsx"
-import {getSuccessMessage} from "../services/textHelper.js"
+import { createColumn } from "../services/columnFactory.js";
+import { BaseCrudPage } from "./BaseCrudPage.jsx";
+
+import {
+  getUsers,
+  searchUsersWithFilters,
+  createUser,
+  updateUser,
+  deleteUser
+} from "../services/adminUserService.js";
+
 export default function UserListPage() {
-  const {showError, showSuccess} = useContext(AlertContext);
-  const [users, setUsers] = useState({});
-  const [userModal, setUserModal] = useState(null);
-  const [filters, setFilters] = useState({
+  const columns = [
+    createColumn("Имя", "Name", {
+      isSearchCriteria: true,
+      formModes: ["create", "edit", "delete"]
+    }),
+    createColumn("Email", "Email", {
+      isSearchCriteria: true,
+      formModes: ["create", "edit", "delete"]
+    }),
+    createColumn("Пароль", "Password", {
+      visible: false,
+      formModes: ["create", "edit"]
+    }),
+    createColumn("Новый пароль", "NewPassword", {
+      visible: false,
+      formModes: ["edit"]
+    }),
+    createColumn("Действие", "__action", { isAction: true })
+  ];
+
+  const filtersConfig = {
     Name: "",
     Email: "",
     Page: 1,
     PageSize: 10
-  });
-  
-  const columns = [
-    createColumn("Имя", "Name", {isSearchCriteria: true , formModes : ["create", "edit", "delete"]}),
-    createColumn("Email", "Email", { isSearchCriteria: true, formModes : ["create", "edit", "delete"] }),
-    createColumn("Пароль", "Password", { visible: false , formModes : ["create", "edit"] }),
-    createColumn("Новый пароль", "NewPassword", { visible : false, formModes : ["edit"] }),
-    createColumn("Действие", "__action", { isAction: true }),
-    ];
-  const requestFields = columns.filter(c =>
-  !c.isAction &&
-  c.formModes?.includes(userModal?.actionType)
-);
-  useEffect(() => {
-    loadUsers();
-  }, []);
+  };
 
-  function performAction(actionType, requestData) {
-    setUserModal({
-      actionType,
-      requestData
-    });
-  }
+  const userApi = {
+    getAll: getUsers,
+    search: searchUsersWithFilters,
+    create: createUser,
+    update: updateUser,
+    remove: deleteUser
+  };
 
-  async function loadUsers() {
-    const result = await getUsers();
-    setUsers(result);
-  }
-
-  function updateUserList(updatedUser, actionType) {
-    setUsers(prev => {
-      switch (actionType) {
-        case "edit":
-          return {
-            ...prev,
-            Items: prev.Items.map(item =>
-              item.Id === updatedUser.Id ? updatedUser : item
-            )
-          };
-
-        case "create":
-          return {
-            ...prev,
-            Items: [updatedUser, ...prev.Items],
-            TotalCount: prev.TotalCount + 1
-          };
-
-        case "delete":
-          return {
-            ...prev,
-            Items: prev.Items.filter(item =>
-              item.Id !== userModal.requestData.Id
-            ),
-            TotalCount: prev.TotalCount - 1
-          };
-
-        default:
-          return prev;
-      }
-    });
-  }
-
-  async function handleSearch({ newFilters = {}, page = 1 } = {}) {
-    const request = {
-      ...filters,
-      ...newFilters,
-      Page: page
-    };
-
-    setFilters(request);
-    console.log(newFilters);
-    const result = await searchUsersWithFilters(request);
-
-    setUsers(result);
-  }
-
-  async function handleConfirm() {
-    let result;
-    try {
-    switch (userModal.actionType) {
-      case "create":
-        result = await createUser(userModal.requestData);
-        break;
-      case "edit":
-        result = await updateUser(userModal.requestData);
-        break;
-      case "delete":
-        result = await deleteUser(userModal.requestData);
-        break;
-    }
-  }
-  catch(ex){
-    showError(ex.message);
-    return;
-  }
-    showSuccess(getSuccessMessage(userModal.actionType, `Пользователь`));
-    updateUserList(result, userModal.actionType);
-    setUserModal(null);
-  }
-  function handleModalChange(updatedData) {
-  setClientModal(prev => ({
-    ...prev,
-    requestData: {
-      ...prev.requestData,
-      ...updatedData
-    }
-  }));
-}
   return (
-    <div>
-      <InfoListAndSearch
-        columns={columns}
-        data={users}
-        onSearch={handleSearch}
-        onAction={performAction}
-        createButtonText={"Добавить пользователя"}
-      />
-
-      {userModal && (
-        <Modal
-          onClose={() => setUserModal(null)}
-          onSubmit={handleConfirm}
-          onChange={handleModalChange}
-          requestFieldNames={requestFields}
-          entity={userModal.requestData}
-          modalType={userModal.actionType}
-        />
-      )}
-    </div>
+    <BaseCrudPage
+      entityName="Пользователь"
+      columns={columns}
+      filtersConfig={filtersConfig}
+      entityApi={userApi}
+    />
   );
 }
